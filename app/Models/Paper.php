@@ -16,10 +16,13 @@ class Paper extends Model
         'type',
     ];
 
-    // Cast 'authors' to array if stored as JSON
     protected $casts = [
-        'authors' => 'array',
+        'publication_date' => 'date',
     ];
+    // Cast 'authors' to array if stored as JSON
+    // protected $casts = [
+    //     'authors' => 'array',
+    // ];
 
     // Scope for fetching papers by type
     public function scopeByType($query, $type)

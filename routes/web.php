@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PaperController as AdminPaperController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PaperController;
@@ -20,5 +21,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/', [DashboardController::class, 'index']);
+        Route::resource('papers', AdminPaperController::class);
     });
 });

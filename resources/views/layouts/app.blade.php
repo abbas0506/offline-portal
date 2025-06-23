@@ -10,7 +10,7 @@
     <!-- Fonts -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Styles -->
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -25,8 +25,9 @@
     @yield('sidebar')
 
     @yield('content')
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
-    <script src="{{ asset('js/sweetalert2@10.js') }}"></script>
+    <script src="{{ asset('js/sweetalert@10.js') }}"></script>
     <script type="module" src="{{ asset('js/collapsible.js') }}"></script>
     <script type="module" src="{{ asset('js/swiper.js') }}"></script>
     <script type="module" src="{{ asset('js/testimonial.js') }}"></script>

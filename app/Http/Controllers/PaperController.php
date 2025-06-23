@@ -13,7 +13,7 @@ class PaperController extends Controller
      */
     public function index()
     {
-        $papers = Paper::with('journalPaper')->get();
+        $papers = Paper::all();
         return view('academic_research.papers.index', compact('papers'));
     }
 

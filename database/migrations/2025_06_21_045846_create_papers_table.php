@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('abstract')->nullable();
-            $table->json('authors');
+            $table->string('authors');
             $table->date('publication_date')->nullable();
             $table->string('keywords')->nullable();
             $table->string('type');  // Used for identifying paper type
