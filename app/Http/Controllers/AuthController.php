@@ -22,7 +22,7 @@ class AuthController extends Controller
 
         // 
         if (Auth::attempt($credentials)) {
-            return redirect('admin');
+            return redirect('/');
         } else {
             //user not verified
             return redirect()->back()->with(['warning' => 'User credentials incorrect !']);

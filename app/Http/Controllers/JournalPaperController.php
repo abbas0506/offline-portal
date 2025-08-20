@@ -14,6 +14,7 @@ class JournalPaperController extends Controller
     public function index()
     {
         //
+
     }
 
     /**

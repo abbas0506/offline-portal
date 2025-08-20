@@ -1,4 +1,4 @@
-<header class="flex flex-col justify-center items-center w-full py-3">
+<header class="flex flex-col justify-center items-center w-full my-5">
     <h2 class="text-center font-bold py-3 text-lg">RSGCRL DIGITAL RESOURCES</h2>
     <div class="flex items-center justify-center px-5 md:px-20 w-full ">
         <div class="flex space-x-4">
@@ -11,6 +11,12 @@
             <a href="" class="tab @if($page==4) active @endif">Data & Inventory</a>
             <div>|</div>
             <a href="" class="tab @if($page==5) active @endif">Capacity Building</a>
+            <div>|</div>
+            @if(Auth::check())
+            <a href="{{ url('signout') }}" class="tab link">Signout</a>
+            @else
+            <a href="{{ url('login') }}" class="tab link">Login</a>
+            @endif
 
         </div>
     </div>
