@@ -20,4 +20,8 @@ class JournalPaper extends Model
     {
         return $this->journal_name . " - Volume " . $this->volume . ", Issue " . $this->issue;
     }
+    public function paper()
+    {
+        return $this->belongsTo(Paper::class);
+    }
 }

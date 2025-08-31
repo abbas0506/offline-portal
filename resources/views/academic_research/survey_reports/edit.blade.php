@@ -7,10 +7,12 @@
 @section('content')
 <div class="mt-32 w-4/5 mx-auto border">
     <div id='breadCrumb' class="bread-crumb bg-slate-200 p-3 relative">
-        <a href="{{ route('journal-papers.index')}}">Journal Papers</a>
+        <a href="{{ route('survey-reports.index')}}">Survey Reports</a>
         <i class="chevron-right"></i>
-        <h3>New</h3>
-        <a href="{{ route('papers.index')}}" class="absolute top-3 right-3 link"><i class="bi-x"></i></a>
+        <h3>Edit</h3>
+        <i class="chevron-right"></i>
+        <h3>{{ $surveyReport->id }}</h3>
+        <a href="{{ route('survey-reports.index')}}" class="absolute top-3 right-3 link"><i class="bi-x"></i></a>
     </div>
 
     @if($errors->any())
@@ -20,53 +22,47 @@
     @endif
 
     <div class="container-light">
-        <form action="{{route('journal-papers.store')}}" method='post' class="w-full md:w-2/3 mx-auto">
+        <form action="{{route('survey-reports.update', $surveyReport)}}" method='post' class="w-full md:w-2/3 mx-auto">
             @csrf
+            @method('patch')
             <input type="hidden" name="type" value="paper">
             <div class="grid gap-8 mt-6">
                 <div class="">
                     <label>Paper Title</label>
-                    <textarea name='title' rows="2" class="custom-input-borderless" placeholder="Paper title" value=""></textarea>
+                    <textarea name='title' rows="2" class="custom-input-borderless" placeholder="Paper title" value="">{{ $surveyReport->paper->title }}</textarea>
                 </div>
                 <div class="">
                     <label>Authors</label>
-                    <input type="text" name='authors' class="custom-input-borderless" placeholder="Author names" value="" required>
+                    <input type="text" name='authors' class="custom-input-borderless" placeholder="Author names" value="{{ $surveyReport->paper->authors }}" required>
                 </div>
                 <div class="">
                     <label>Publication Date</label>
-                    <input type="date" name='publication_date' class="custom-input-borderless" placeholder="Publication date" value="" required>
-                </div>
-                <div class="">
-                    <label>Issue</label>
-                    <input type="text" name='issue' class="custom-input-borderless" placeholder="Issue" value="" required>
+                    <input type="date" name='publication_date' class="custom-input-borderless" placeholder="Publication date" value="{{ old('publication_date', optional($surveyReport->paper)->publication_date?->toDateString()) }}" required>
                 </div>
 
                 <div class="">
                     <label>Abstract</label>
-                    <textarea name='abstract' rows="5" class="custom-input-borderless" placeholder="Abstract (optional)" value=""></textarea>
+                    <textarea name='abstract' rows="5" class="custom-input-borderless" placeholder="Abstract (optional)">{{ $surveyReport->paper->abstract }}</textarea>
                 </div>
                 <div class="">
                     <label>Keywords</label>
-                    <input type="text" name='keywords' class="custom-input-borderless" placeholder="List of keywords" value="" required>
+                    <input type="text" name='keywords' class="custom-input-borderless" placeholder="List of keywords" value="{{ $surveyReport->paper->keywords }}" required>
                 </div>
                 <div class="">
-                    <label>Journal Name</label>
-                    <input type="text" name='journal_name' class="custom-input-borderless" placeholder="Journal name" value="" required>
+                    <label>Survey Scope</label>
+                    <input type="text" name='survey_scope' class="custom-input-borderless" placeholder="Survey scope" value="{{ $surveyReport->survey_scope }}" required>
                 </div>
                 <div class="">
-                    <label>Volume</label>
-                    <input type="text" name='volume' class="custom-input-borderless" placeholder="Journal volume" value="" required>
+                    <label>Key Findings</label>
+                    <input type="text" name='key_findings' class="custom-input-borderless" placeholder="key findings" value="{{ $surveyReport->key_findings }}" required>
                 </div>
                 <div class="">
                     <label>DOI</label>
-                    <input type="text" name='doi' class="custom-input-borderless" placeholder="DOI" value="">
+                    <input type="text" name='doi' class="custom-input-borderless" placeholder="DOI" value="{{ $surveyReport->doi }}">
                 </div>
-                <div class="">
-                    <label>ISSN</label>
-                    <input type="text" name='issn' class="custom-input-borderless" placeholder="ISSN" value="">
-                </div>
+
                 <div class="text-right">
-                    <button type="submit" class="btn-green rounded">Save</button>
+                    <button type="submit" class="btn-green rounded">Update</button>
                 </div>
 
             </div>

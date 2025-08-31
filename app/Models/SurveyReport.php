@@ -4,20 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TechnicalReport extends Model
+class SurveyReport extends Model
 {
     //
     protected $fillable = [
         'paper_id',
-        'institution',
-        'report_number',
+        'survey_scope',
+        'key_findings',
         'doi',
     ];
-
-    public function reportDetails()
-    {
-        return $this->institution . " - Report # " . $this->report_number;
-    }
 
     public function paper()
     {

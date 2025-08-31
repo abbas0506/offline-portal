@@ -19,14 +19,34 @@ class Paper extends Model
     protected $casts = [
         'publication_date' => 'date',
     ];
-    // Cast 'authors' to array if stored as JSON
-    // protected $casts = [
-    //     'authors' => 'array',
-    // ];
 
     // Scope for fetching papers by type
     public function scopeByType($query, $type)
     {
         return $query->where('type', $type);
+    }
+    public function journalPapers()
+    {
+        return $this->hasMany(JournalPaper::class);
+    }
+    public function conferencePapers()
+    {
+        return $this->hasMany(ConferencePaper::class);
+    }
+    public function technicalReports()
+    {
+        return $this->hasMany(TechnicalReport::class);
+    }
+    public function reviewPapers()
+    {
+        return $this->hasMany(ReviewPaper::class);
+    }
+    public function surveyReports()
+    {
+        return $this->hasMany(SurveyReport::class);
+    }
+    public function thesis()
+    {
+        return $this->hasMany(Thesis::class);
     }
 }

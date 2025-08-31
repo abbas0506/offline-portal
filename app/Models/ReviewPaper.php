@@ -18,4 +18,8 @@ class ReviewPaper extends Model
     {
         return $this->review_scope . " - " . $this->journal_name;
     }
+    public function paper()
+    {
+        return $this->belongsTo(Paper::class);
+    }
 }

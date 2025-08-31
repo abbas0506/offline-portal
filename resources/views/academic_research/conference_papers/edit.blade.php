@@ -7,12 +7,12 @@
 @section('content')
 <div class="mt-32 w-4/5 mx-auto border">
     <div id='breadCrumb' class="bread-crumb bg-slate-200 p-3 relative">
-        <a href="{{ route('journal-papers.index')}}">Journal Papers</a>
+        <a href="{{ route('conference-papers.index')}}">Conference Papers</a>
         <i class="chevron-right"></i>
         <h3>Edit</h3>
         <i class="chevron-right"></i>
-        <h3>{{ $journalPaper->id }}</h3>
-        <a href="{{ route('journal-papers.index')}}" class="absolute top-3 right-3 link"><i class="bi-x"></i></a>
+        <h3>{{ $conferencePaper->id }}</h3>
+        <a href="{{ route('conference-papers.index')}}" class="absolute top-3 right-3 link"><i class="bi-x"></i></a>
     </div>
 
     @if($errors->any())
@@ -22,53 +22,48 @@
     @endif
 
     <div class="container-light">
-        <form action="{{route('journal-papers.update', $journalPaper)}}" method='post' class="w-full md:w-2/3 mx-auto">
+        <form action="{{route('conference-papers.update', $conferencePaper)}}" method='post' class="w-full md:w-2/3 mx-auto">
             @csrf
             @method('patch')
             <input type="hidden" name="type" value="paper">
             <div class="grid gap-8 mt-6">
                 <div class="">
                     <label>Paper Title</label>
-                    <textarea name='title' rows="2" class="custom-input-borderless" placeholder="Paper title" value="">{{ $journalPaper->paper->title }}</textarea>
+                    <textarea name='title' rows="2" class="custom-input-borderless" placeholder="Paper title" value="">{{ $conferencePaper->paper->title }}</textarea>
                 </div>
                 <div class="">
                     <label>Authors</label>
-                    <input type="text" name='authors' class="custom-input-borderless" placeholder="Author names" value="{{ $journalPaper->paper->authors }}" required>
+                    <input type="text" name='authors' class="custom-input-borderless" placeholder="Author names" value="{{ $conferencePaper->paper->authors }}" required>
                 </div>
                 <div class="">
                     <label>Publication Date</label>
-                    <input type="date" name='publication_date' class="custom-input-borderless" placeholder="Publication date" value="{{ old('publication_date', optional($journalPaper->paper)->publication_date?->toDateString()) }}" required>
+                    <input type="date" name='publication_date' class="custom-input-borderless" placeholder="Publication date" value="{{ old('publication_date', optional($conferencePaper->paper)->publication_date?->toDateString()) }}" required>
                 </div>
 
                 <div class="">
                     <label>Abstract</label>
-                    <textarea name='abstract' rows="5" class="custom-input-borderless" placeholder="Abstract (optional)">{{ $journalPaper->paper->abstract }}</textarea>
+                    <textarea name='abstract' rows="5" class="custom-input-borderless" placeholder="Abstract (optional)">{{ $conferencePaper->paper->abstract }}</textarea>
                 </div>
                 <div class="">
                     <label>Keywords</label>
-                    <input type="text" name='keywords' class="custom-input-borderless" placeholder="List of keywords" value="{{ $journalPaper->paper->keywords }}" required>
+                    <input type="text" name='keywords' class="custom-input-borderless" placeholder="List of keywords" value="{{ $conferencePaper->paper->keywords }}" required>
                 </div>
 
                 <div class="">
-                    <label>Issue</label>
-                    <input type="text" name='issue' class="custom-input-borderless" placeholder="Issue" value="{{ $journalPaper->issue }}" required>
-                </div>
-
-                <div class="">
-                    <label>Journal Name</label>
-                    <input type="text" name='journal_name' class="custom-input-borderless" placeholder="Journal name" value="{{ $journalPaper->journal_name }}" required>
+                    <label>Conference Name</label>
+                    <input type="text" name='conference_name' class="custom-input-borderless" placeholder="Conference name" value="{{ $conferencePaper->conference_name }}" required>
                 </div>
                 <div class="">
-                    <label>Volume</label>
-                    <input type="text" name='volume' class="custom-input-borderless" placeholder="Journal volume" value="{{ $journalPaper->volume }}" required>
+                    <label>Conference Date</label>
+                    <input type="date" name='conference_date' class="custom-input-borderless" placeholder="Conference date" value="{{ old('conference_date', $conferencePaper->conference_date?->toDateString()) }}" required>
+                </div>
+                <div class="">
+                    <label>Location</label>
+                    <input type="text" name='location' class="custom-input-borderless" placeholder="Location" value="{{ $conferencePaper->location }}" required>
                 </div>
                 <div class="">
                     <label>DOI</label>
-                    <input type="text" name='doi' class="custom-input-borderless" placeholder="DOI" value="{{ $journalPaper->doi }}">
-                </div>
-                <div class="">
-                    <label>ISSN</label>
-                    <input type="text" name='issn' class="custom-input-borderless" placeholder="ISSN" value="{{ $journalPaper->issn }}">
+                    <input type="text" name='doi' class="custom-input-borderless" placeholder="DOI" value="{{ $conferencePaper->doi }}">
                 </div>
 
                 <div class="text-right">

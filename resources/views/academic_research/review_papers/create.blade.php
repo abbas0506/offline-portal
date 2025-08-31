@@ -7,7 +7,7 @@
 @section('content')
 <div class="mt-32 w-4/5 mx-auto border">
     <div id='breadCrumb' class="bread-crumb bg-slate-200 p-3 relative">
-        <a href="{{ route('journal-papers.index')}}">Journal Papers</a>
+        <a href="{{ route('review-papers.index')}}">Review Papers</a>
         <i class="chevron-right"></i>
         <h3>New</h3>
         <a href="{{ route('papers.index')}}" class="absolute top-3 right-3 link"><i class="bi-x"></i></a>
@@ -20,7 +20,7 @@
     @endif
 
     <div class="container-light">
-        <form action="{{route('journal-papers.store')}}" method='post' class="w-full md:w-2/3 mx-auto">
+        <form action="{{route('review-papers.store')}}" method='post' class="w-full md:w-2/3 mx-auto">
             @csrf
             <input type="hidden" name="type" value="paper">
             <div class="grid gap-8 mt-6">
@@ -37,11 +37,6 @@
                     <input type="date" name='publication_date' class="custom-input-borderless" placeholder="Publication date" value="" required>
                 </div>
                 <div class="">
-                    <label>Issue</label>
-                    <input type="text" name='issue' class="custom-input-borderless" placeholder="Issue" value="" required>
-                </div>
-
-                <div class="">
                     <label>Abstract</label>
                     <textarea name='abstract' rows="5" class="custom-input-borderless" placeholder="Abstract (optional)" value=""></textarea>
                 </div>
@@ -54,16 +49,12 @@
                     <input type="text" name='journal_name' class="custom-input-borderless" placeholder="Journal name" value="" required>
                 </div>
                 <div class="">
-                    <label>Volume</label>
-                    <input type="text" name='volume' class="custom-input-borderless" placeholder="Journal volume" value="" required>
+                    <label>Review Scope</label>
+                    <input type="text" name='review_scope' class="custom-input-borderless" placeholder="Review scope" value="">
                 </div>
                 <div class="">
                     <label>DOI</label>
                     <input type="text" name='doi' class="custom-input-borderless" placeholder="DOI" value="">
-                </div>
-                <div class="">
-                    <label>ISSN</label>
-                    <input type="text" name='issn' class="custom-input-borderless" placeholder="ISSN" value="">
                 </div>
                 <div class="text-right">
                     <button type="submit" class="btn-green rounded">Save</button>

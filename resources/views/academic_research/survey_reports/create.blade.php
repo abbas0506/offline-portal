@@ -7,7 +7,7 @@
 @section('content')
 <div class="mt-32 w-4/5 mx-auto border">
     <div id='breadCrumb' class="bread-crumb bg-slate-200 p-3 relative">
-        <a href="{{ route('journal-papers.index')}}">Journal Papers</a>
+        <a href="{{ route('survey-reports.index')}}">Survey Reports</a>
         <i class="chevron-right"></i>
         <h3>New</h3>
         <a href="{{ route('papers.index')}}" class="absolute top-3 right-3 link"><i class="bi-x"></i></a>
@@ -20,7 +20,7 @@
     @endif
 
     <div class="container-light">
-        <form action="{{route('journal-papers.store')}}" method='post' class="w-full md:w-2/3 mx-auto">
+        <form action="{{route('survey-reports.store')}}" method='post' class="w-full md:w-2/3 mx-auto">
             @csrf
             <input type="hidden" name="type" value="paper">
             <div class="grid gap-8 mt-6">
@@ -37,11 +37,6 @@
                     <input type="date" name='publication_date' class="custom-input-borderless" placeholder="Publication date" value="" required>
                 </div>
                 <div class="">
-                    <label>Issue</label>
-                    <input type="text" name='issue' class="custom-input-borderless" placeholder="Issue" value="" required>
-                </div>
-
-                <div class="">
                     <label>Abstract</label>
                     <textarea name='abstract' rows="5" class="custom-input-borderless" placeholder="Abstract (optional)" value=""></textarea>
                 </div>
@@ -50,20 +45,16 @@
                     <input type="text" name='keywords' class="custom-input-borderless" placeholder="List of keywords" value="" required>
                 </div>
                 <div class="">
-                    <label>Journal Name</label>
-                    <input type="text" name='journal_name' class="custom-input-borderless" placeholder="Journal name" value="" required>
+                    <label>Survey Scope</label>
+                    <input type="text" name='survey_scope' class="custom-input-borderless" placeholder="Survey scope" value="">
                 </div>
                 <div class="">
-                    <label>Volume</label>
-                    <input type="text" name='volume' class="custom-input-borderless" placeholder="Journal volume" value="" required>
+                    <label>Key Findings</label>
+                    <input type="text" name='key_findings' class="custom-input-borderless" placeholder="Key findings" value="" required>
                 </div>
                 <div class="">
                     <label>DOI</label>
                     <input type="text" name='doi' class="custom-input-borderless" placeholder="DOI" value="">
-                </div>
-                <div class="">
-                    <label>ISSN</label>
-                    <input type="text" name='issn' class="custom-input-borderless" placeholder="ISSN" value="">
                 </div>
                 <div class="text-right">
                     <button type="submit" class="btn-green rounded">Save</button>

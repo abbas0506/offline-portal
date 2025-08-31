@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ConferencePaper;
 use App\Models\Paper;
+use App\Models\SurveyReport;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ConferencePaperController extends Controller
+class SurveyReportController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $conferencePapers = ConferencePaper::all();
-        return view('academic_research.conference_papers.index', compact('conferencePapers'));
+        $surveyReports = SurveyReport::all();
+        return view('academic_research.survey_reports.index', compact('surveyReports'));
     }
 
     public function create()
     {
-        return view('academic_research.conference_papers.create');
+        return view('academic_research.survey_reports.create');
     }
 
     public function store(Request $request)
@@ -33,9 +33,9 @@ class ConferencePaperController extends Controller
             'authors' => 'required|string',
             'publication_date' => 'required|date',
             'keywords' => 'nullable|string',
-            'conference_name' => 'required|string',
-            'location' => 'nullable|string',
-            'conference_date' => 'required|date',
+            'key_findings' => 'required|string',
+            'survey_scope' => 'nullable|string',
+            'doi' => 'required|string',
         ]);
 
         DB::beginTransaction();
@@ -46,40 +46,39 @@ class ConferencePaperController extends Controller
                 'abstract' => $request->abstract,
                 'authors' => $request->authors,
                 'keywords' => $request->keywords,
-                'type' => 'conference_paper',
+                'type' => 'review_paper',
             ]);
 
-            $conferencePaper = new conferencePaper([
-                'conference_name' => $request->conference_name,
-                'location' => $request->location,
+            $surveyReport = new SurveyReport([
+                'key_findings' => $request->key_findings,
+                'survey_scope' => $request->survey_scope,
                 'doi' => $request->doi,
-                'conference_date' => $request->conference_date,
             ]);
-            $paper->conferencePapers()->save($conferencePaper);
+            $paper->surveyReports()->save($surveyReport);
 
             DB::commit();
-            return redirect()->route('conference-papers.index')
-                ->with('success', 'Conference Paper created successfully.');
+            return redirect()->route('survey-reports.index')
+                ->with('success', 'Survey report created successfully.');
         } catch (Exception $e) {
             DB::rollBack();
             return back()->with('warning', $e->getMessage());
         }
     }
 
-    public function show(conferencePaper $conferencePaper)
+    public function show(SurveyReport $surveyReport)
     {
-        return view('academic_research.conference_papers.show', compact('conferencePaper'));
+        return view('academic_research.survey_reports.show', compact('surveyReport'));
     }
 
-    public function edit(conferencePaper $conferencePaper)
+    public function edit(SurveyReport $surveyReport)
     {
-        return view('academic_research.conference_papers.edit', compact('conferencePaper'));
+        return view('academic_research.survey_reports.edit', compact('surveyReport'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, conferencePaper $conferencePaper)
+    public function update(Request $request, SurveyReport $surveyReport)
     {
         //
         $request->validate([
@@ -88,14 +87,14 @@ class ConferencePaperController extends Controller
             'authors' => 'required|string',
             'publication_date' => 'required|date',
             'keywords' => 'nullable|string',
-            'conference_name' => 'required|string',
-            'location' => 'nullable|string',
-            'conference_date' => 'required|date',
+            'key_findings' => 'required|string',
+            'survey_scope' => 'nullable|string',
+            'doi' => 'required|string',
         ]);
 
         DB::beginTransaction();
         try {
-            $conferencePaper->paper->update([
+            $surveyReport->paper->update([
                 'title' => $request->title,
                 'publication_date' => $request->publication_date,
                 'abstract' => $request->abstract,
@@ -103,15 +102,14 @@ class ConferencePaperController extends Controller
                 'keywords' => $request->keywords,
             ]);
 
-            $conferencePaper->update([
-                'conference_name' => $request->conference_name,
-                'conference_date' => $request->conference_date,
-                'location' => $request->location,
+            $surveyReport->update([
+                'key_findings' => $request->key_findings,
+                'survey_scope' => $request->survey_scope,
                 'doi' => $request->doi,
             ]);
             DB::commit();
-            return redirect()->route('conference-papers.index')
-                ->with('success', 'Conference paper updated successfully.');
+            return redirect()->route('survey-reports.index')
+                ->with('success', 'Survey report updated successfully.');
         } catch (Exception $e) {
             DB::rollBack();
             return back()->with('warning', $e->getMessage());
@@ -125,12 +123,12 @@ class ConferencePaperController extends Controller
     {
         //
         try {
-            $conferencePaper = ConferencePaper::findOrFail($id);
-            $conferencePaper->delete();
+            $surveyReport = SurveyReport::findOrFail($id);
+            $surveyReport->delete();
 
-            return redirect()->route('conference-papers.index')->with('success', 'Journal paper deleted successfully.');
+            return redirect()->route('survey-reports.index')->with('success', 'Survey report deleted successfully.');
         } catch (Exception $e) {
-            return redirect()->route('conference-papers.index')->with('error', $e->getMessage());
+            return redirect()->route('survey-reports.index')->with('error', $e->getMessage());
         }
     }
 }

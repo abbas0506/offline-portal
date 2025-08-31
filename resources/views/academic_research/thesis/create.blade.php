@@ -7,10 +7,14 @@
 @section('content')
 <div class="mt-32 w-4/5 mx-auto border">
     <div id='breadCrumb' class="bread-crumb bg-slate-200 p-3 relative">
-        <a href="{{ route('journal-papers.index')}}">Journal Papers</a>
+        @if(session('thesis_type')==='mphil_thesis')
+        <a href="{{ route('mphil.thesis')}}">MPhil Thesis</a>
+        @else
+        <a href="{{ route('phd.thesis')}}">PhD Thesis</a>
+        @endif
         <i class="chevron-right"></i>
         <h3>New</h3>
-        <a href="{{ route('papers.index')}}" class="absolute top-3 right-3 link"><i class="bi-x"></i></a>
+        <a href="{{ route('thesis.index')}}" class="absolute top-3 right-3 link"><i class="bi-x"></i></a>
     </div>
 
     @if($errors->any())
@@ -20,9 +24,8 @@
     @endif
 
     <div class="container-light">
-        <form action="{{route('journal-papers.store')}}" method='post' class="w-full md:w-2/3 mx-auto">
+        <form action="{{route('thesis.store')}}" method='post' class="w-full md:w-2/3 mx-auto">
             @csrf
-            <input type="hidden" name="type" value="paper">
             <div class="grid gap-8 mt-6">
                 <div class="">
                     <label>Paper Title</label>
@@ -36,10 +39,6 @@
                     <label>Publication Date</label>
                     <input type="date" name='publication_date' class="custom-input-borderless" placeholder="Publication date" value="" required>
                 </div>
-                <div class="">
-                    <label>Issue</label>
-                    <input type="text" name='issue' class="custom-input-borderless" placeholder="Issue" value="" required>
-                </div>
 
                 <div class="">
                     <label>Abstract</label>
@@ -50,21 +49,40 @@
                     <input type="text" name='keywords' class="custom-input-borderless" placeholder="List of keywords" value="" required>
                 </div>
                 <div class="">
-                    <label>Journal Name</label>
-                    <input type="text" name='journal_name' class="custom-input-borderless" placeholder="Journal name" value="" required>
+                    <label>Degree Type</label>
+                    <select name="degree_type" id="" class="custom-input-borderless">
+                        @if(session('thesis_type')==='mphil_thesis')
+                        <option value="mphil_thesis">M Phil</option>
+                        @else
+                        <option value="phd_thesis">Ph D</option>
+                        @endif
+                    </select>
                 </div>
                 <div class="">
-                    <label>Volume</label>
-                    <input type="text" name='volume' class="custom-input-borderless" placeholder="Journal volume" value="" required>
+                    <label>Degree Program</label>
+                    <input type="text" name='degree_program' class="custom-input-borderless" placeholder="Degree Program" value="" required>
+                </div>
+                <div class="">
+                    <label>Supervisor</label>
+                    <input type="text" name='supervisor' class="custom-input-borderless" placeholder="Supervisor" value="" required>
+                </div>
+                <div class="">
+                    <label>Key Findings</label>
+                    <input type="text" name='key_findings' class="custom-input-borderless" placeholder="Key Findings" value="" required>
+                </div>
+                <div class="">
+                    <label>Methodolgy</label>
+                    <input type="text" name='methodology' class="custom-input-borderless" placeholder="Methodology" value="" required>
+                </div>
+                <div class="">
+                    <label>Submission Data</label>
+                    <input type="date" name='submission_date' class="custom-input-borderless" placeholder="Submission date" value="" required>
                 </div>
                 <div class="">
                     <label>DOI</label>
                     <input type="text" name='doi' class="custom-input-borderless" placeholder="DOI" value="">
                 </div>
-                <div class="">
-                    <label>ISSN</label>
-                    <input type="text" name='issn' class="custom-input-borderless" placeholder="ISSN" value="">
-                </div>
+
                 <div class="text-right">
                     <button type="submit" class="btn-green rounded">Save</button>
                 </div>
